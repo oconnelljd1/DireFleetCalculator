@@ -5,7 +5,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class CalcManager : MonoBehaviour
+public class DireFleetManager : MonoBehaviour
 {
     [SerializeField] private TMP_Text inputDisplay;
     [SerializeField] private TMP_Text outputDisplay;
