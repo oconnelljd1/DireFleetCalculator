@@ -5,59 +5,62 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DireFleetManager : MonoBehaviour
+namespace DireFleetCalc
 {
-    [SerializeField] private TMP_Text inputDisplay;
-    [SerializeField] private TMP_Text outputDisplay;
-    
-    private string inputString;
-
-    void Start()
+    public class DireFleetManager : MonoBehaviour
     {
-        ClearInput();
-    }
+        [SerializeField] private TMP_Text inputDisplay;
+        [SerializeField] private TMP_Text outputDisplay;
+        
+        private string inputString;
 
-    public void AddDigit(string digit)
-    {
-        if(inputDisplay.text == "0")
+        void Start()
         {
-            inputDisplay.text = digit;
+            ClearInput();
         }
-        else
+
+        public void AddDigit(string digit)
         {
-            inputDisplay.text = inputDisplay.text + digit;
+            if(inputDisplay.text == "0")
+            {
+                inputDisplay.text = digit;
+            }
+            else
+            {
+                inputDisplay.text = inputDisplay.text + digit;
+            }
+            UpdateDisplay();
         }
-        UpdateDisplay();
-    }
 
-    public void ClearInput()
-    {
-        inputDisplay.text = "0";
-        UpdateDisplay();
-    }
-
-    public void ClearLastDigit()
-    {
-        inputDisplay.text = inputDisplay.text.Remove(inputDisplay.text.Length - 1);
-        if(inputDisplay.text == "")
+        public void ClearInput()
         {
             inputDisplay.text = "0";
+            UpdateDisplay();
         }
-        UpdateDisplay();
-    }
 
-    private void UpdateDisplay()
-    {
-        float value = 0;
-        float.TryParse(inputDisplay.text, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out value);
-
-        for(int i = 0; i < 4; i++)
+        public void ClearLastDigit()
         {
-            if(value == 0)
-                break;
-
-            value = Mathf.Floor(value * 2 / 3);
+            inputDisplay.text = inputDisplay.text.Remove(inputDisplay.text.Length - 1);
+            if(inputDisplay.text == "")
+            {
+                inputDisplay.text = "0";
+            }
+            UpdateDisplay();
         }
-        outputDisplay.text = value + "";
+
+        private void UpdateDisplay()
+        {
+            float value = 0;
+            float.TryParse(inputDisplay.text, NumberStyles.Any, CultureInfo.GetCultureInfo("en-US"), out value);
+
+            for(int i = 0; i < 4; i++)
+            {
+                if(value == 0)
+                    break;
+
+                value = Mathf.Floor(value * 2 / 3);
+            }
+            outputDisplay.text = value + "";
+        }
     }
 }
